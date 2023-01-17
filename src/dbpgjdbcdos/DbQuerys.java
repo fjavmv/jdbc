@@ -3,6 +3,7 @@ package dbpgjdbcdos;
 public class DbQuerys {
     final static String CONTARACTORES = "SELECT count(*) FROM actor";
     final static String GETACTORES = "SELECT actor_id,first_name, last_name FROM actor";
+
     final static String GETFILMACTOR = "SELECT * FROM film_actor";
    final static String SQL= "SELECT \n" +
            "f.film_id AS pelicula_id,\n" +

@@ -1,5 +1,8 @@
 package dbpgjdbcdos;
+import dbjdbctres.DTOActor;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DbConsultar {
     /*
@@ -29,29 +32,25 @@ public class DbConsultar {
         return  contador;
     }
 
-    public static void getActores(){
+   /* public static ArrayList<DTOActor> getActoresB(){
+        ArrayList<DTOActor> actors = new ArrayList<>();
         try{
             connection = DbConection.abrirConexion();
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(DbQuerys.GETACTORES);
-            mostrarActores(resultSet);
-        }catch (SQLException ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    private static void mostrarActores(ResultSet resultSet){
-        try {
             while (resultSet.next()){
                 String id = resultSet.getString("actor_id");
                 String nombre = resultSet.getString("first_name");
                 String apellido = resultSet.getString("last_name");
-                System.out.println(id + " " + nombre + " " + apellido);
+                String fecha = resultSet.getString("last_update");
+                actors.add(new DTOActor(id,nombre,apellido,fecha));
             }
+
         }catch (SQLException ex){
-           System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         }
-    }
+        return actors;
+    }*/
 
     public static void consultarActoresDePeliculas(){
         try{

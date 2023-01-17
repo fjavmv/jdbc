@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConection {
+
+
+
     /*
     Para establcer la conexión al PostgreSQL database server es necesario llamar al método getConnection de la clase DriverManager
     el cual retorna un objeto de tipo Connection.
@@ -19,6 +22,8 @@ public class DbConection {
         }
         return connection;
     }
+
+
 
     public static void cerrarDb(Connection connection){
         try{
