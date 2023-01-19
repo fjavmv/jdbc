@@ -1,7 +1,13 @@
 package dbjdbctres;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import java.sql.Date;
+import java.util.Arrays;
+import java.util.Vector;
 
 public class DAOOperaciones {
     public static void insertarLibros(DTOLibro DTOLibro){
@@ -38,6 +44,51 @@ public class DAOOperaciones {
             System.out.println(ex.getMessage());
         }
     }
+
+    private static Date stringADate(String date) {
+        return Date.valueOf(date);
+    }
+
+    private static Array insetaArray(Vector<String> elemento, Connection connection)  {
+        Array arraySql = null;
+        try{
+           arraySql = connection.createArrayOf(" ", elemento.toArray());
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return arraySql;
+    }
+
+    public static void insertarPelicula(DTOPelicula dtoPelicula){
+        try{
+            Connection connection = DbConection.abrirConexion();
+            PreparedStatement preparedStatement = connection.prepareStatement(DbQuerys.INSERTAPELICULA);
+            preparedStatement.setString(1, dtoPelicula.getTitle());
+            preparedStatement.setString(2, dtoPelicula.getDescription());
+            preparedStatement.setInt(3, dtoPelicula.getRelease_year());
+            preparedStatement.setInt(4,dtoPelicula.getLanguage_id());
+            preparedStatement.setInt(5, dtoPelicula.getRental_duration());
+            preparedStatement.setInt(6,dtoPelicula.getRental_rate());
+            preparedStatement.setInt(7,dtoPelicula.getReplacement_cost());
+            preparedStatement.setDate(8,stringADate(dtoPelicula.getLast_update()));
+            preparedStatement.setObject(9,insetaArray(dtoPelicula.getFull_text(),connection));
+
+            int filas = preparedStatement.executeUpdate();
+
+            //Verificamos las filas afectadas
+            if (filas == 1){
+                System.out.println("Elementos insertados de manera correcta..");
+            }
+            else {
+                throw new RuntimeException("Ha ocurrido un erro lo siento");
+            }
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+
+
+
 
     public static void insercionMultiple(ArrayList<DTOLibro> libros){
        /*

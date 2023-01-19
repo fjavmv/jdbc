@@ -11,6 +11,13 @@ public class DbQuerys {
            "editorial_libro = ? " +
            "WHERE libro_id = ?;";
 
+
+   final static String INSERTAPELICULA = "INSERT INTO public.film(title, description, " +
+           "release_year, language_id, " +
+           "rental_duration, rental_rate, " +
+           "replacement_cost, last_update, fulltext) " +
+           "VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
+
    final static String QUERYELIMINAR = "DELETE FROM libro_t WHERE libro_id = ?;";
 
 }
